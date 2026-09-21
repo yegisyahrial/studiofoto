@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMINA Photography & Creative Studio | High-End Visual Agency</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Syne (Editorial Display) & Plus Jakarta Sans (Clean Modern Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: {
+                            950: '#070708',
+                            900: '#0A0A0B',
+                            800: '#121216',
+                            700: '#1A1A22',
+                            600: '#2A2A36'
+                        },
+                        gold: {
+                            400: '#F3E5AB',
+                            500: '#D4AF37', // Luxury Gold Accent
+                            600: '#AA8828',
+                        },
+                        cyan: {
+                            400: '#00E5FF', // Neon Cyan Accent
+                            500: '#00B8D4',
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow-gold': '0 0 25px -5px rgba(212, 175, 55, 0.25)',
+                        'glow-cyan': '0 0 25px -5px rgba(0, 229, 255, 0.25)',
+                        'dark-card': '0 20px 50px -10px rgba(0, 0, 0, 0.7)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0A0A0B;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        /* SPA Animated Page View Transitions */
+        .page-view {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page-view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism Dark Theme Styling */
+        .glass-panel {
+            background: rgba(18, 18, 22, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-panel-hover {
+            background: rgba(18, 18, 22, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.35s ease;
+        }
+
+        .glass-panel-hover:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px -10px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Subtle Ambient Grid Background */
+        .ambient-grid {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2A36;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-black">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-obsidian-950/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo -->
+                <a href="javascript:void(0)" onclick="navigateTo('home')" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500 to-amber-700 p-[1px] shadow-glow-gold group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-obsidian-900 rounded-[11px] flex items-center justify-center">
+                            <i class="fa-solid fa-camera-retro text-gold-500 text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display font-extrabold text-xl tracking-wider text-white group-hover:text-gold-500 transition-colors">LUMINA</span>
+                        <span class="text-[9px] text-gray-400 tracking-[0.25em] font-semibold uppercase -mt-1">Creative Studio</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Navigation -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button onclick="navigateTo('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white hover:bg-white/5 transition-all">Beranda</button>
+                    <button onclick="navigateTo('gallery')" id="nav-gallery" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white hover:bg-white/5 transition-all">Galeri & Portofolio</button>
+                    <button onclick="navigateTo('pricing')" id="nav-pricing" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white hover:bg-white/5 transition-all">Paket & Harga</button>
+                    <button onclick="navigateTo('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider text-gray-300 hover:text-white hover:bg-white/5 transition-all">Tentang Studio</button>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center">
+                    <button onclick="navigateTo('booking')" class="bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-black font-bold px-6 py-2.5 rounded-full text-xs uppercase tracking-widest shadow-glow-gold transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-calendar-check mr-2"></i> Booking Sesi
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-white p-2.5 rounded-xl bg-obsidian-800 border border-white/10 focus:outline-none">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl text-gold-500"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-obsidian-900 border-b border-white/10 px-6 pt-3 pb-6 space-y-2">
+            <button onclick="navigateTo('home'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold text-gray-200 hover:bg-white/5 hover:text-gold-500">Beranda</button>
+            <button onclick="navigateTo('gallery'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold text-gray-200 hover:bg-white/5 hover:text-gold-500">Galeri & Portofolio</button>
+            <button onclick="navigateTo('pricing'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold text-gray-200 hover:bg-white/5 hover:text-gold-500">Paket & Harga</button>
+            <button onclick="navigateTo('about'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl text-sm font-semibold text-gray-200 hover:bg-white/5 hover:text-gold-500">Tentang Studio</button>
+            <div class="pt-3">
+                <button onclick="navigateTo('booking'); toggleMobileMenu()" class="w-full bg-gradient-to-r from-gold-500 to-amber-600 text-black font-bold py-3.5 rounded-xl text-center shadow-glow-gold uppercase text-xs tracking-widest">
+                    Booking Sesi Foto
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow relative">
+
+        <!-- ==================== VIEW 1: BERANDA (HOME) ==================== -->
+        <section id="view-home" class="page-view active">
+            <!-- Hero Section -->
+            <div class="relative ambient-grid py-16 lg:py-28 px-4 overflow-hidden">
+                
+                <!-- Ambient Glow Orbs -->
+                <div class="absolute top-1/4 left-10 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                    
+                    <!-- Hero Text -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2.5 bg-obsidian-800 border border-gold-500/30 px-4 py-2 rounded-full text-xs font-semibold text-gold-400 shadow-glow-gold">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span>Open for Booking - Q3/Q4 2026</span>
+                        </div>
+                        
+                        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+                            Mengabadikan <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-amber-500 to-gold-600">Momen & Emosi</span> Dalam Karya Visual Mahakarya
+                        </h1>
+                        
+                        <p class="text-gray-400 text-base sm:text-lg max-w-2xl font-light leading-relaxed mx-auto lg:mx-0">
+                            Studio fotografi & agensi kreatif profesional spesialis Commercial Brand, Wedding Editorial, Personal Portrait, dan Studio Campaign kelas atas.
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
+                            <button onclick="navigateTo('booking')" class="bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-black font-bold px-8 py-4 rounded-full shadow-glow-gold transition-all text-center text-xs uppercase tracking-widest flex items-center justify-center gap-3">
+                                <span>Booking Sesi Foto</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="navigateTo('gallery')" class="glass-panel hover:bg-white/10 text-white font-semibold px-8 py-4 rounded-full transition-all text-center text-xs uppercase tracking-widest border border-white/20">
+                                <i class="fa-solid fa-compass mr-2 text-gold-500"></i> Jelajahi Portofolio
+                            </button>
+                        </div>
+
+                        <!-- Stats Bar -->
+                        <div class="pt-10 border-t border-white/10 grid grid-cols-3 gap-6 text-center lg:text-left">
+                            <div>
+                                <p class="font-display text-3xl font-bold text-gold-500">1,200+</p>
+                                <p class="text-xs text-gray-400 mt-1">Sesi Foto Sukses</p>
+                            </div>
+                            <div>
+                                <p class="font-display text-3xl font-bold text-cyan-400">98%</p>
+                                <p class="text-xs text-gray-400 mt-1">Kepuasan Klien</p>
+                            </div>
+                            <div>
+                                <p class="font-display text-3xl font-bold text-white">15+</p>
+                                <p class="text-xs text-gray-400 mt-1">Penghargaan Fotografi</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual Card -->
+                    <div class="lg:col-span-5">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <div class="glass-panel p-3 rounded-3xl border border-white/10 shadow-dark-card relative z-10 group">
+                                <div class="relative h-[440px] rounded-2xl overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="LUMINA Featured Shot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-transparent to-transparent opacity-80"></div>
+                                    <div class="absolute bottom-6 left-6 right-6">
+                                        <span class="bg-gold-500 text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Editorial Campaign</span>
+                                        <h4 class="font-display font-bold text-xl text-white mt-2">Vogue Style Portrait</h4>
+                                        <p class="text-xs text-gray-300 mt-1">Sony A7R V • 85mm f/1.4 • Profoto Lighting</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Featured Categories Highlights -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="text-center max-w-2xl mx-auto mb-14">
+                    <span class="text-gold-500 font-semibold uppercase tracking-widest text-xs">Spesialisasi Kami</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">Layanan Fotografi Eksklusif</h2>
+                    <p class="text-gray-400 mt-3 text-sm">Dirancang dengan presisi visual tinggi untuk memenuhi kebutuhan komersial, pribadi, maupun dokumentasi momen sekali seumur hidup.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="glass-panel-hover p-8 rounded-3xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-gold-500/10 border border-gold-500/30 text-gold-500 flex items-center justify-center text-2xl mb-6">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white mb-3">Wedding & Pre-Wedding</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed">Mengabadikan kisah cinta Anda dalam gaya cinematic editorial. Mulai dari prapernikahan intimate hingga resepsi internasional.</p>
+                        </div>
+                        <button onclick="navigateTo('gallery')" class="mt-6 text-gold-400 font-semibold text-xs flex items-center gap-2 hover:gap-3 transition-all">
+                            <span>Lihat Galeri Pernikahan</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="glass-panel-hover p-8 rounded-3xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 flex items-center justify-center text-2xl mb-6">
+                                <i class="fa-solid fa-shirt"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white mb-3">Commercial & Fashion</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed">Katalog produk brand,lookbook fashion, iklan komersial, dan campaign media sosial dengan daya tarik visual tingkat tinggi.</p>
+                        </div>
+                        <button onclick="navigateTo('gallery')" class="mt-6 text-cyan-400 font-semibold text-xs flex items-center gap-2 hover:gap-3 transition-all">
+                            <span>Lihat Galeri Komersial</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="glass-panel-hover p-8 rounded-3xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center text-2xl mb-6">
+                                <i class="fa-solid fa-user-astronaut"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white mb-3">Studio Portrait & Beauty</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed">Sesi foto pribadi profesional, branding korporat, potret wisuda, serta konsep personal headshot bergaya majalah kelas dunia.</p>
+                        </div>
+                        <button onclick="navigateTo('gallery')" class="mt-6 text-purple-400 font-semibold text-xs flex items-center gap-2 hover:gap-3 transition-all">
+                            <span>Lihat Galeri Portrait</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Testimonials -->
+            <div class="bg-obsidian-800/60 border-y border-white/10 py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-14">
+                        <span class="text-gold-500 font-semibold uppercase tracking-widest text-xs">Ulasan Klien</span>
+                        <h2 class="font-display text-3xl font-bold text-white mt-2">Kepuasan Dari Klien Berharga</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glass-panel p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+                            <div>
+                                <div class="flex text-gold-500 text-xs gap-1 mb-4">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-300 text-xs sm:text-sm italic leading-relaxed mb-6">"Hasil foto pre-wedding kami di Bali sangat luar biasa! Tim LUMINA sangat mengarahkan pose dengan santai tapi hasil seperti majalah Vogue!"</p>
+                            </div>
+                            <div class="flex items-center space-x-3 pt-4 border-t border-white/10">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Client 1" class="w-10 h-10 rounded-full object-cover border border-gold-500">
+                                <div>
+                                    <h5 class="font-display font-bold text-sm text-white">Nadia & Kevan</h5>
+                                    <p class="text-[11px] text-gray-400">Wedding Editorial Client</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+                            <div>
+                                <div class="flex text-gold-500 text-xs gap-1 mb-4">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-300 text-xs sm:text-sm italic leading-relaxed mb-6">"Katalog produk fashion brand kami terlihat jauh lebih mahal dan profesional setelah memakai jasa commercial photography dari LUMINA."</p>
+                            </div>
+                            <div class="flex items-center space-x-3 pt-4 border-t border-white/10">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Client 2" class="w-10 h-10 rounded-full object-cover border border-gold-500">
+                                <div>
+                                    <h5 class="font-display font-bold text-sm text-white">Budi Santoso</h5>
+                                    <p class="text-[11px] text-gray-400">Founder Urban Threads Co.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+                            <div>
+                                <div class="flex text-gold-500 text-xs gap-1 mb-4">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-300 text-xs sm:text-sm italic leading-relaxed mb-6">"Pengalaman foto studio yang sangat menyenangkan. Lighting profoto, studio luas ber-AC, dan penyelesaian retouch foto yang tepat waktu."</p>
+                            </div>
+                            <div class="flex items-center space-x-3 pt-4 border-t border-white/10">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" alt="Client 3" class="w-10 h-10 rounded-full object-cover border border-gold-500">
+                                <div>
+                                    <h5 class="font-display font-bold text-sm text-white">Clara Wibowo</h5>
+                                    <p class="text-[11px] text-gray-400">Personal Branding Portrait</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 2: GALERI PORTOFOLIO ==================== -->
+        <section id="view-gallery" class="page-view">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-gold-500 font-semibold uppercase tracking-widest text-xs">Arsip Visual</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">Galeri Karya Portofolio</h2>
+                    <p class="text-gray-400 mt-2 text-sm">Klik gambar untuk melihat detail metadata kamera, lighting, dan tampilan resolusi tinggi.</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap justify-center gap-3 mb-12">
+                    <button onclick="filterGallery('all')" class="gallery-filter-btn active bg-gold-500 text-black font-bold px-5 py-2 rounded-full text-xs transition-all shadow-glow-gold">Semua Karya</button>
+                    <button onclick="filterGallery('wedding')" class="gallery-filter-btn bg-obsidian-800 text-gray-300 hover:text-white border border-white/10 px-5 py-2 rounded-full text-xs font-semibold transition-all">Wedding & Pre-Wedding</button>
+                    <button onclick="filterGallery('commercial')" class="gallery-filter-btn bg-obsidian-800 text-gray-300 hover:text-white border border-white/10 px-5 py-2 rounded-full text-xs font-semibold transition-all">Commercial & Brand</button>
+                    <button onclick="filterGallery('portrait')" class="gallery-filter-btn bg-obsidian-800 text-gray-300 hover:text-white border border-white/10 px-5 py-2 rounded-full text-xs font-semibold transition-all">Portrait & Studio</button>
+                    <button onclick="filterGallery('event')" class="gallery-filter-btn bg-obsidian-800 text-gray-300 hover:text-white border border-white/10 px-5 py-2 rounded-full text-xs font-semibold transition-all">Event & Concert</button>
+                </div>
+
+                <!-- Gallery Masonry/Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Item 1: Wedding -->
+                    <div class="gallery-item wedding glass-card rounded-2xl overflow-hidden border border-white/10 group cursor-pointer relative" onclick="openLightbox('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80', 'Eternal Vows - Wedding', 'Wedding & Engagement', 'Sony A7R V | 85mm f/1.4 | 1/500s | ISO 100')">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Wedding" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="bg-gold-500 text-black text-[10px] font-bold px-2.5 py-0.5 rounded-full w-fit mb-2">Wedding & Engagement</span>
+                                <h4 class="font-display font-bold text-lg text-white">Eternal Vows</h4>
+                                <p class="text-xs text-gold-400 mt-1">Sony A7R V • 85mm f/1.4</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Commercial -->
+                    <div class="gallery-item commercial glass-card rounded-2xl overflow-hidden border border-white/10 group cursor-pointer relative" onclick="openLightbox('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80', 'Minimalist Timepiece - Product', 'Commercial & Brand', 'Hasselblad X2D | 90mm Macro | Studio Profoto D2')">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80" alt="Commercial Product" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="bg-cyan-400 text-black text-[10px] font-bold px-2.5 py-0.5 rounded-full w-fit mb-2">Commercial & Brand</span>
+                                <h4 class="font-display font-bold text-lg text-white">Minimalist Timepiece</h4>
+                                <p class="text-xs text-cyan-400 mt-1">Hasselblad X2D • 90mm Macro</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Portrait -->
+                    <div class="gallery-item portrait glass-card rounded-2xl overflow-hidden border border-white/10 group cursor-pointer relative" onclick="openLightbox('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80', 'Cyberpunk Studio Headshot', 'Portrait & Studio', 'Sony FX6 | 50mm Anamorphic | RGB Softbox')">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Studio Portrait" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="bg-purple-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full w-fit mb-2">Portrait & Studio</span>
+                                <h4 class="font-display font-bold text-lg text-white">Cyberpunk Headshot</h4>
+                                <p class="text-xs text-purple-400 mt-1">Sony FX6 • 50mm Anamorphic</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Event -->
+                    <div class="gallery-item event glass-card rounded-2xl overflow-hidden border border-white/10 group cursor-pointer relative" onclick="openLightbox('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80', 'Neon Concert Stage - Music Live', 'Event & Concert', 'Sony A7S III | 24-70mm f/2.8 GM II | 1/1000s | ISO 3200')">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" alt="Concert Event" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="bg-emerald-400 text-black text-[10px] font-bold px-2.5 py-0.5 rounded-full w-fit mb-2">Event & Concert</span>
+                                <h4 class="font-display font-bold text-lg text-white">Neon Concert Night</h4>
+                                <p class="text-xs text-emerald-400 mt-1">Sony A7S III • 24-70mm f/2.8</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Commercial -->
+                    <div class="gallery-item commercial glass-card rounded-2xl overflow-hidden border border-white/10 group cursor-pointer relative" onclick="openLightbox('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1200&q=80', 'Acoustic Sound Equipment', 'Commercial & Brand', 'Sony A7R V | 50mm f/1.2 GM | Studio Rim Light')">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" alt="Headphone Brand" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="bg-cyan-400 text-black text-[10px] font-bold px-2.5 py-0.5 rounded-full w-fit mb-2">Commercial & Brand</span>
+                                <h4 class="font-display font-bold text-lg text-white">Audio Sound Campaign</h4>
+                                <p class="text-xs text-cyan-400 mt-1">Sony A7R V • 50mm f/1.2 GM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 6: Wedding -->
+                    <div class="gallery-item wedding glass-card rounded-2xl overflow-hidden border border-white/10 group cursor-pointer relative" onclick="openLightbox('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1200&q=80', 'Sunset Ocean Romance', 'Wedding & Engagement', 'Sony A7 IV | 35mm f/1.4 GM | Natural Sunset Light')">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=80" alt="Sunset Wedding" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <span class="bg-gold-500 text-black text-[10px] font-bold px-2.5 py-0.5 rounded-full w-fit mb-2">Wedding & Engagement</span>
+                                <h4 class="font-display font-bold text-lg text-white">Sunset Cliff Ceremony</h4>
+                                <p class="text-xs text-gold-400 mt-1">Sony A7 IV • 35mm f/1.4 GM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 3: PAKET & HARGA ==================== -->
+        <section id="view-pricing" class="page-view">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-gold-500 font-semibold uppercase tracking-widest text-xs">Investasi Visual</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">Daftar Paket & Kalkulator Investasi</h2>
+                    <p class="text-gray-400 mt-2 text-sm">Pilih paket utama dan tambahkan opsi pendukung untuk menghitung estimasi biaya secara otomatis.</p>
+                </div>
+
+                <!-- Pricing Cards Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+                    
+                    <!-- Tier 1: Personal Portrait -->
+                    <div class="glass-panel rounded-3xl p-8 border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <span class="bg-obsidian-800 text-gold-400 border border-gold-500/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Personal Session</span>
+                            <h3 class="font-display font-bold text-2xl text-white mt-3">Personal & Headshot</h3>
+                            <p class="text-xs text-gray-400 mt-1">Sangat ideal untuk personal branding, wisuda, dan portofolio studio.</p>
+
+                            <div class="my-6">
+                                <span class="text-xs text-gray-400 block">Mulai dari</span>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="font-display text-3xl font-bold text-gold-500">Rp 2.500.000</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3 text-xs text-gray-300 mb-8 border-t border-white/10 pt-4">
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> Durasi Sesi Foto 2 Jam Studio</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> 10 Foto Retouch High Resolution</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> All High-Res RAW Files Provided</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> 2 Pilihan Background Studio</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="selectPackageForBooking('Personal & Headshot', 2500000)" class="w-full bg-obsidian-800 hover:bg-gold-500 hover:text-black border border-gold-500/40 text-gold-400 font-bold py-3.5 rounded-xl transition-all text-xs uppercase tracking-wider">
+                            Pilih Paket Personal
+                        </button>
+                    </div>
+
+                    <!-- Tier 2: Wedding / Pre-Wedding (Popular Highlighted) -->
+                    <div class="glass-panel rounded-3xl p-8 border-2 border-gold-500 shadow-glow-gold relative flex flex-col justify-between transform lg:-translate-y-2">
+                        <span class="absolute -top-3.5 right-6 bg-gradient-to-r from-gold-500 to-amber-600 text-black text-[9px] font-extrabold px-3 py-1 rounded-full uppercase tracking-widest">
+                            FAVORIT KLIEN
+                        </span>
+
+                        <div>
+                            <span class="bg-gold-500 text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
+                            <h3 class="font-display font-bold text-2xl text-white mt-3">Wedding & Pre-Wedding</h3>
+                            <p class="text-xs text-gray-300 mt-1">Dokumentasi cinematic momen prapernikahan atau hari resepsi.</p>
+
+                            <div class="my-6">
+                                <span class="text-xs text-gray-400 block">Mulai dari</span>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="font-display text-3xl font-bold text-gold-500">Rp 8.500.000</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3 text-xs text-gray-200 mb-8 border-t border-white/10 pt-4">
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> 2 Photographers & 1 Director</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> Full Day Coverage (Up to 8 Hours)</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> 40 Color Edited Magazine Photos</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> Album Hardcover Luxury Photobook</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-500"></i> Flashdisk Exclusive Box Gift</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="selectPackageForBooking('Wedding & Pre-Wedding', 8500000)" class="w-full bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-black font-bold py-4 rounded-xl shadow-glow-gold transition-all text-xs uppercase tracking-wider">
+                            Pilih Paket Wedding
+                        </button>
+                    </div>
+
+                    <!-- Tier 3: Commercial & Brand -->
+                    <div class="glass-panel rounded-3xl p-8 border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <span class="bg-obsidian-800 text-cyan-400 border border-cyan-400/30 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Commercial Agency</span>
+                            <h3 class="font-display font-bold text-2xl text-white mt-3">Commercial Brand</h3>
+                            <p class="text-xs text-gray-400 mt-1">Khusus campaign fashion, foto produk e-commerce & katalog iklan.</p>
+
+                            <div class="my-6">
+                                <span class="text-xs text-gray-400 block">Mulai dari</span>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="font-display text-3xl font-bold text-cyan-400">Rp 6.000.000</span>
+                                </div>
+                            </div>
+
+                            <ul class="space-y-3 text-xs text-gray-300 mb-8 border-t border-white/10 pt-4">
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Half-Day Studio/Location Session</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Commercial Usage Rights License</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> Professional Lighting Setup & Assistant</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-cyan-400"></i> High-End Skin Retouching & Color Grading</li>
+                            </ul>
+                        </div>
+
+                        <button onclick="selectPackageForBooking('Commercial Brand', 6000000)" class="w-full bg-obsidian-800 hover:bg-cyan-400 hover:text-black border border-cyan-400/40 text-cyan-400 font-bold py-3.5 rounded-xl transition-all text-xs uppercase tracking-wider">
+                            Pilih Paket Commercial
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Live Add-on Estimator Box -->
+                <div class="glass-panel rounded-3xl p-8 max-w-4xl mx-auto border border-white/10">
+                    <h3 class="font-display font-bold text-xl text-white mb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-sliders text-gold-500"></i> Opsi Tambahan (Add-On Calculator)
+                    </h3>
+                    <p class="text-xs text-gray-400 mb-6">Centang opsi berikut untuk menambahkan layanan ke estimasi investasi Anda:</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <label class="flex items-center justify-between p-4 bg-obsidian-800/80 rounded-2xl border border-white/10 cursor-pointer hover:border-gold-500/50 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="addon-drone" value="Aerial Drone Coverage" data-price="1500000" onchange="calculatePricingEstimate()" class="rounded border-gray-700 text-gold-500 focus:ring-0">
+                                <div>
+                                    <span class="text-xs font-semibold text-white block">Aerial Drone Coverage</span>
+                                    <span class="text-[10px] text-gray-400">Pengambilan foto udara 4K</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-gold-400">+Rp 1.5M</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-obsidian-800/80 rounded-2xl border border-white/10 cursor-pointer hover:border-gold-500/50 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="addon-express" value="Express 24h Photo Delivery" data-price="1000000" onchange="calculatePricingEstimate()" class="rounded border-gray-700 text-gold-500 focus:ring-0">
+                                <div>
+                                    <span class="text-xs font-semibold text-white block">Express 24H Delivery</span>
+                                    <span class="text-[10px] text-gray-400">Penyelesaian foto kilat 24 jam</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-gold-400">+Rp 1.0M</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-obsidian-800/80 rounded-2xl border border-white/10 cursor-pointer hover:border-gold-500/50 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="addon-photobook" value="Premium Hardcover Album" data-price="1200000" onchange="calculatePricingEstimate()" class="rounded border-gray-700 text-gold-500 focus:ring-0">
+                                <div>
+                                    <span class="text-xs font-semibold text-white block">Printed Hardcover Album</span>
+                                    <span class="text-[10px] text-gray-400">Cetak album eksklusif 20x30 cm</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-gold-400">+Rp 1.2M</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-obsidian-800/80 rounded-2xl border border-white/10 cursor-pointer hover:border-gold-500/50 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="addon-overtime" value="Extra Coverage Hour" data-price="750000" onchange="calculatePricingEstimate()" class="rounded border-gray-700 text-gold-500 focus:ring-0">
+                                <div>
+                                    <span class="text-xs font-semibold text-white block">Extra Hour (+1 Jam)</span>
+                                    <span class="text-[10px] text-gray-400">Tambahan durasi liputan</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-gold-400">+Rp 750K</span>
+                        </label>
+                    </div>
+
+                    <!-- Total Price Live Box -->
+                    <div class="bg-obsidian-950 p-6 rounded-2xl border border-gold-500/30 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div>
+                            <span class="text-xs text-gray-400 uppercase tracking-wider block">Estimasi Investasi Total:</span>
+                            <span id="calculatedEstimateDisplay" class="font-display text-3xl font-bold text-gold-500">Rp 8.500.000</span>
+                        </div>
+                        <button onclick="navigateTo('booking')" class="w-full sm:w-auto bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-black font-bold px-8 py-3.5 rounded-xl shadow-glow-gold transition-all text-xs uppercase tracking-widest">
+                            Lanjut Ke Pemesanan Slot <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 4: JADWAL & BOOKING ==================== -->
+        <section id="view-booking" class="page-view">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-gold-500 font-semibold uppercase tracking-widest text-xs">Reservasi Sesi</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">Formulir Booking Sesi Foto</h2>
+                    <p class="text-gray-400 mt-2 text-sm">Lengkapi detail di bawah untuk pemesanan slot jadwal secara otomatis via WhatsApp.</p>
+                </div>
+
+                <div class="glass-panel rounded-3xl p-6 sm:p-10 border border-white/10 shadow-dark-card">
+                    <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-8">
+                        
+                        <!-- Step 1: Session Details -->
+                        <div>
+                            <h3 class="font-display font-bold text-lg text-white border-b border-white/10 pb-3 mb-6 flex items-center gap-3">
+                                <span class="w-7 h-7 rounded-full bg-gold-500 text-black font-bold text-xs flex items-center justify-center">1</span>
+                                <span>Pilihan Kategori & Jadwal Slot</span>
+                            </h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Pilih Paket Sesi *</label>
+                                    <select id="bookingPackage" onchange="updateBookingPackagePrice()" required class="w-full px-4 py-3.5 rounded-xl bg-obsidian-800 border border-white/10 text-white focus:outline-none focus:border-gold-500 text-sm">
+                                        <option value="Personal & Headshot" data-price="2500000">Personal & Headshot (Rp 2.500.000)</option>
+                                        <option value="Wedding & Pre-Wedding" data-price="8500000" selected>Wedding & Pre-Wedding (Rp 8.500.000)</option>
+                                        <option value="Commercial Brand" data-price="6000000">Commercial Brand (Rp 6.000.000)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Lokasi Sesi *</label>
+                                    <select id="bookingLocationType" required class="w-full px-4 py-3.5 rounded-xl bg-obsidian-800 border border-white/10 text-white focus:outline-none focus:border-gold-500 text-sm">
+                                        <option value="Main Studio LUMINA (Indoor)">Main Studio LUMINA (Indoor Studio)</option>
+                                        <option value="Outdoor / On-Location Client">Outdoor / Outdoor Location Client</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Pilih Tanggal *</label>
+                                    <input type="date" id="bookingDate" required class="w-full px-4 py-3.5 rounded-xl bg-obsidian-800 border border-white/10 text-white focus:outline-none focus:border-gold-500 text-sm">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Pilih Jam Slot *</label>
+                                    <select id="bookingTimeSlot" required class="w-full px-4 py-3.5 rounded-xl bg-obsidian-800 border border-white/10 text-white focus:outline-none focus:border-gold-500 text-sm">
+                                        <option value="Slot Sesi 1: 09:00 - 12:00 WIB">Slot Sesi 1: 09:00 - 12:00 WIB</option>
+                                        <option value="Slot Sesi 2: 13:00 - 16:00 WIB">Slot Sesi 2: 13:00 - 16:00 WIB</option>
+                                        <option value="Slot Sesi 3: 16:30 - 19:30 WIB (Sunset)">Slot Sesi 3: 16:30 - 19:30 WIB (Sunset)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Client Info -->
+                        <div>
+                            <h3 class="font-display font-bold text-lg text-white border-b border-white/10 pb-3 mb-6 flex items-center gap-3">
+                                <span class="w-7 h-7 rounded-full bg-gold-500 text-black font-bold text-xs flex items-center justify-center">2</span>
+                                <span>Informasi Data Diri Pemesan</span>
+                            </h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Nama Lengkap *</label>
+                                    <input type="text" id="clientName" required placeholder="Contoh: Jessica Meliana" class="w-full px-4 py-3.5 rounded-xl bg-obsidian-800 border border-white/10 text-white focus:outline-none focus:border-gold-500 text-sm">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Nomor WhatsApp *</label>
+                                    <input type="tel" id="clientPhone" required placeholder="081234567890" class="w-full px-4 py-3.5 rounded-xl bg-obsidian-800 border border-white/10 text-white focus:outline-none focus:border-gold-500 text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-2">Catatan Khusus / Konsep Foto</label>
+                                <textarea id="clientNotes" rows="3" placeholder="Jelaskan konsep foto, moodboard, atau kebutuhan spesifik Anda..." class="w-full px-4 py-3.5 rounded-xl bg-obsidian-800 border border-white/10 text-white focus:outline-none focus:border-gold-500 text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Price & Action Button -->
+                        <div class="bg-obsidian-950 p-6 rounded-2xl border border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-xs text-gray-400 block font-semibold uppercase">Total Biaya Sesi:</span>
+                                <span id="bookingFormPriceDisplay" class="font-display text-3xl font-bold text-gold-500">Rp 8.500.000</span>
+                            </div>
+
+                            <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-black font-bold px-8 py-4 rounded-xl shadow-glow-gold transition-all text-xs uppercase tracking-widest flex items-center justify-center gap-3">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>Kirim Booking via WhatsApp</span>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 5: TENTANG STUDIO ==================== -->
+        <section id="view-about" class="page-view">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-gold-500 font-semibold uppercase tracking-widest text-xs">Profil Agensi</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">Tentang LUMINA Studio</h2>
+                    <p class="text-gray-400 mt-2 text-sm">Mengenal standar peralatan teknis kelas atas dan fasilitas ruang studio kami.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+                    <div class="lg:col-span-6 space-y-5">
+                        <h3 class="font-display font-bold text-2xl text-white">Standar Visi Visual Tanpa Kompromi</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">
+                            Didirikan pada tahun 2018, LUMINA Photography & Creative Studio berkembang menjadi agensi visual terkemuka yang dipercaya oleh ratusan brand nasional, pasangan pengantin, dan figur publik.
+                        </p>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Kami menggabungkan estetika seni fotografi klasik dengan teknik lighting modern serta penguasaan pascaproduksi berstandar industri internasional.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4">
+                            <div class="p-4 bg-obsidian-800/80 rounded-2xl border border-white/10">
+                                <i class="fa-solid fa-bolt text-gold-500 text-xl mb-2"></i>
+                                <h5 class="font-display font-bold text-sm text-white">High-Speed Sync</h5>
+                                <p class="text-xs text-gray-400 mt-1">Sistem pencahayaan Profoto D2 & B10X</p>
+                            </div>
+                            <div class="p-4 bg-obsidian-800/80 rounded-2xl border border-white/10">
+                                <i class="fa-solid fa-expand text-cyan-400 text-xl mb-2"></i>
+                                <h5 class="font-display font-bold text-sm text-white">Cyclorama Wall</h5>
+                                <p class="text-xs text-gray-400 mt-1">Dinding studio tanpa sudut 8x6 meter</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6">
+                        <div class="glass-panel p-3 rounded-3xl border border-white/10 shadow-dark-card">
+                            <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?auto=format&fit=crop&w=800&q=80" alt="LUMINA Studio Equipment" class="w-full h-[380px] object-cover rounded-2xl">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gear Specs Showcase -->
+                <div class="bg-obsidian-800/60 rounded-3xl p-8 border border-white/10 max-w-5xl mx-auto">
+                    <h4 class="font-display font-bold text-xl text-white mb-6 text-center">Peralatan Utama (Studio Gear Arsenal)</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="p-5 bg-obsidian-900 rounded-2xl border border-white/5">
+                            <i class="fa-solid fa-camera text-gold-500 text-2xl mb-3"></i>
+                            <h5 class="font-display font-bold text-sm text-white mb-1">Kamera Utama</h5>
+                            <p class="text-xs text-gray-400">Sony A7R V (61MP), Sony FX6 Cinema, Hasselblad X2D 100C</p>
+                        </div>
+                        <div class="p-5 bg-obsidian-900 rounded-2xl border border-white/5">
+                            <i class="fa-solid fa-lightbulb text-gold-500 text-2xl mb-3"></i>
+                            <h5 class="font-display font-bold text-sm text-white mb-1">Sistem Pencahayaan</h5>
+                            <p class="text-xs text-gray-400">Profoto D2 AirTTL, Aputure 600d Pro, Softbox Para 180</p>
+                        </div>
+                        <div class="p-5 bg-obsidian-900 rounded-2xl border border-white/5">
+                            <i class="fa-solid fa-laptop-code text-gold-500 text-2xl mb-3"></i>
+                            <h5 class="font-display font-bold text-sm text-white mb-1">Post-Production</h5>
+                            <p class="text-xs text-gray-400">Calibrated Apple Mac Studio M2 Ultra, Capture One Pro, EIZO Monitors</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- LIGHTBOX MODAL FOR HIGH-RES GALLERY PREVIEW -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full glass-panel p-4 sm:p-6 rounded-3xl border border-white/20">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-gold-500 text-2xl focus:outline-none">
+                <i class="fa-solid fa-xmark"></i> Close
+            </button>
+            <div class="relative h-[65vh] rounded-2xl overflow-hidden mb-4">
+                <img id="lightbox-img" src="" alt="Gallery Preview" class="w-full h-full object-contain bg-black/40">
+            </div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                    <span id="lightbox-category" class="bg-gold-500 text-black text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">Category</span>
+                    <h4 id="lightbox-title" class="font-display font-bold text-lg text-white mt-1">Image Title</h4>
+                </div>
+                <p id="lightbox-meta" class="text-xs text-gray-400 font-mono bg-obsidian-900 px-3 py-1.5 rounded-xl border border-white/10">Camera Specs</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION POPUP -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 bg-obsidian-800 text-white px-6 py-4 rounded-2xl shadow-glow-gold border border-gold-500/40 flex items-center space-x-3 transition-all duration-300 pointer-events-none">
+        <div class="w-8 h-8 rounded-full bg-gold-500 text-black flex items-center justify-center font-bold">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <h5 class="font-display font-bold text-sm" id="toast-title">Pesan Terkirim</h5>
+            <p class="text-xs text-gray-300" id="toast-message">Mengalihkan ke WhatsApp Admin...</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-obsidian-950 text-gray-400 border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-lg bg-gold-500 text-black flex items-center justify-center font-bold">
+                        L
+                    </div>
+                    <span class="font-display font-bold text-lg text-white">LUMINA STUDIO</span>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    <a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-gold-500 transition-colors">Beranda</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('gallery')" class="hover:text-gold-500 transition-colors">Galeri</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('pricing')" class="hover:text-gold-500 transition-colors">Paket & Harga</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('about')" class="hover:text-gold-500 transition-colors">Tentang Studio</a>
+                </div>
+
+                <div class="text-xs text-gray-500 font-light">
+                    &copy; 2026 LUMINA Photography & Creative Studio. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        // 1. Single Page Application Routing Engine
+        function navigateTo(viewId) {
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(v => v.classList.remove('active'));
+
+            const target = document.getElementById('view-' + viewId);
+            if(target) {
+                target.classList.add('active');
+            }
+
+            // Update Desktop Nav Styling
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => {
+                btn.classList.remove('bg-white/10', 'text-white', 'font-bold');
+                btn.classList.add('text-gray-300');
+            });
+
+            const activeNav = document.getElementById('nav-' + viewId);
+            if(activeNav) {
+                activeNav.classList.add('bg-white/10', 'text-white', 'font-bold');
+                activeNav.classList.remove('text-gray-300');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 2. Mobile Drawer Navigation Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // 3. Gallery Category Filter
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const btns = document.querySelectorAll('.gallery-filter-btn');
+
+            btns.forEach(btn => {
+                btn.classList.remove('bg-gold-500', 'text-black', 'shadow-glow-gold', 'font-bold');
+                btn.classList.add('bg-obsidian-800', 'text-gray-300');
+            });
+
+            event.target.classList.remove('bg-obsidian-800', 'text-gray-300');
+            event.target.classList.add('bg-gold-500', 'text-black', 'shadow-glow-gold', 'font-bold');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 4. Live Pricing & Add-on Estimator Engine
+        function calculatePricingEstimate() {
+            let basePrice = 8500000; // Default base reference
+            let total = basePrice;
+
+            const addons = ['addon-drone', 'addon-express', 'addon-photobook', 'addon-overtime'];
+            addons.forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checkbox && checkbox.checked) {
+                    total += parseFloat(checkbox.getAttribute('data-price')) || 0;
+                }
+            });
+
+            const formatted = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }).format(total);
+
+            document.getElementById('calculatedEstimateDisplay').innerText = formatted;
+        }
+
+        // 5. Select Package from Pricing Card & Redirect
+        function selectPackageForBooking(packageName, price) {
+            const select = document.getElementById('bookingPackage');
+            for(let i = 0; i < select.options.length; i++) {
+                if(select.options[i].value === packageName) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+            updateBookingPackagePrice();
+            navigateTo('booking');
+        }
+
+        function updateBookingPackagePrice() {
+            const select = document.getElementById('bookingPackage');
+            const selectedOption = select.options[select.selectedIndex];
+            const price = parseFloat(selectedOption.getAttribute('data-price')) || 0;
+
+            const formatted = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                maximumFractionDigits: 0
+            }).format(price);
+
+            document.getElementById('bookingFormPriceDisplay').innerText = formatted;
+        }
+
+        // 6. Form Submission & Direct WhatsApp Order Generator
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+
+            const packageName = document.getElementById('bookingPackage').value;
+            const location = document.getElementById('bookingLocationType').value;
+            const date = document.getElementById('bookingDate').value;
+            const timeSlot = document.getElementById('bookingTimeSlot').value;
+
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const notes = document.getElementById('clientNotes').value;
+
+            const totalPrice = document.getElementById('bookingFormPriceDisplay').innerText;
+
+            showToast('Booking Terkirim!', 'Mengalihkan ke WhatsApp Admin LUMINA...');
+
+            const waNumber = "6281234567890";
+            const message = `*RESERVASI SESI FOTO - LUMINA STUDIO*\n\n` +
+                            `*Detail Pemesan:*\n` +
+                            `- Nama: ${name}\n` +
+                            `- WhatsApp: ${phone}\n` +
+                            `- Tanggal Sesi: ${date}\n` +
+                            `- Slot Waktu: ${timeSlot}\n\n` +
+                            `*Spesifikasi Sesi:*\n` +
+                            `- Paket: *${packageName}*\n` +
+                            `- Lokasi: ${location}\n` +
+                            `- Estimasi Biaya: *${totalPrice}*\n` +
+                            `- Catatan Khusus: ${notes ? notes : '-'}\n\n` +
+                            `Halo Admin LUMINA Studio, mohon info ketersediaan slot tanggal ini. Terima kasih!`;
+
+            setTimeout(() => {
+                window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank');
+            }, 1200);
+        }
+
+        // 7. Lightbox Modal Controls
+        function openLightbox(imgSrc, title, category, meta) {
+            const lightbox = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox-title').innerText = title;
+            document.getElementById('lightbox-category').innerText = category;
+            document.getElementById('lightbox-meta').innerText = meta;
+
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+        }
+
+        // Toast Helper
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Set default minimum date picker to today
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('bookingDate');
+            if(dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.min = today;
+                dateInput.value = today;
+            }
+            updateBookingPackagePrice();
+        });
+    </script>
+</body>
+</html>
